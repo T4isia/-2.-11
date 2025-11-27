@@ -47,6 +47,30 @@ class TestFindDates(unittest.TestCase):
         results = [m for m in coincidence(data)]
         self.assertIn("29.02.2024", results)
 
+    # 4. Проверка на год, когда не 4 цифры
+    def test_wrong_format(self):
+        data = "10.05.27"
+        results = [m for m in coincidence(data)]
+        self.assertEqual(results, [])
+
+    # 5. Проверка нескольких дат в одной строке
+    def test_multiple_format(self):
+        data = "Сегодня 25.11.2025, а завтра 26.11.2025"
+        results = [m for m in coincidence(data)]
+        self.assertEqual(results, ["25.11.2025", "26.11.2025"])
+
+    # 6. Проверка на строку без дат
+    def test_no_dates(self):
+        data = "Меня зовут Тася"
+        results = [m for m in coincidence(data)]
+        self.assertEqual(results, [])
+
+    # 7. Проверка на пустую строку
+    def test_empty_string(self):
+        data = ""
+        results = [m for m in coincidence(data)]
+        self.assertEqual(results, [])
+
 
 # Тест с консольным вводом
 class TestConsoleInput(unittest.TestCase):
